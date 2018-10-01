@@ -1,0 +1,31 @@
+{
+  "name": "react-konva-motion",
+  "version": "1.0.0",
+  "description": "Playing with react drawing ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/webpack --config webpack.config.js --watch",
+    "start-devserver": "node devserver.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "konva": "^2.1.7",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-konva": "^1.7.12",
+    "react-spring": "^5.4.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "connect": "^3.6.6",
+    "serve-static": "^1.13.2",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.1.0"
+  }
+}
