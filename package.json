@@ -16,7 +16,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-konva": "^1.7.12",
-    "react-spring": "^5.4.4"
+    "react-spring": "^5.9.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

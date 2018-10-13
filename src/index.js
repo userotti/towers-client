@@ -1,74 +1,48 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { Stage, Layer, Rect, Text } from 'react-konva';
-import Konva from 'konva';
+import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 import { Spring } from 'react-spring/dist/konva'
-import { TimingAnimation, Easing } from 'react-spring/dist/addons'
-
-
-
-class ColoredRect extends Component {
-
-  state = {
-    color: 'green'
-  };
-
-  handleClick = () => {
-    this.setState({
-      color: Konva.Util.getRandomColor()
-    });
-  };
-
-  render() {
-    return (
-      <Rect
-        x={this.props.x}
-        y={this.props.y}
-        width={10}
-        height={10}
-        fill={"white"}
-      />
-    );
-  }
-}
+import Konva from 'konva';
+// import Explosion from './explosion.js';
 
 const randomNumberRange = (start, end) => {
    return ((Math.random() * (start - end)) - start);
 }
 
+
+
 class App extends Component {
 
   state = {
-    blocks: []
+    explosions: []
   }
   componentDidMount() {
+
+    this.setState({
+      explosions: [{
+        x: 200,
+        y: 200
+      }]
+    })
+
     setInterval(()=>{
       this.setState({
-        blocks: [{
-          x: 200 + (randomNumberRange(-200, 200)),
-          y: 200 + (randomNumberRange(-200, 200)),
-          destx: 200 + (randomNumberRange(-200, 200)),
-          desty: 200 + (randomNumberRange(-200, 200))
-        }, {
-          x: 200 + (randomNumberRange(-200, 200)),
-          y: 200 + (randomNumberRange(-200, 200)),
-          destx: 200 + (randomNumberRange(-200, 200)),
-          desty: 200 + (randomNumberRange(-200, 200))
-        }, {
-          x: 200 + (randomNumberRange(-200, 200)),
-          y: 200 + (randomNumberRange(-200, 200)),
-          destx: 200 + (randomNumberRange(-200, 200)),
-          desty: 200 + (randomNumberRange(-200, 200))
+        explosions: [{
+          x: 200,
+          y: 200
         }]
       })
-    }, 1500)
+      
+    }, 1000)
   }
 
   render() {
     console.log("this.props", this.props);
     console.log("this.state", this.state);
 
-    const { blocks } = this.state;
+    const { explosions } = this.state;
+    console.log("or hier?")
+      
     return (
       <Stage width={window.innerWidth} height={window.innerHeight} >
         <Layer>
@@ -81,18 +55,46 @@ class App extends Component {
           />
           <Text fill={"white"} text="This is some text from react-konva " />
 
-          {blocks.map((block, index)=>{
-            return <Spring key={index} impl={TimingAnimation} from={{ x: block.x, y: block.y  }} to={{ x: block.destx, y: block.desty }} config={{ duration: 500, easing: Easing.sin }}>
-                 {spring => {
-                   return <ColoredRect {...spring}/>
-                 }}
-              </Spring>
-          })}
-
+            {explosions && explosions.map((explosion, index)=>{
+              return <Explosion key={index} {...explosion}/> 
+            })}
 
         </Layer>
+
       </Stage>
     );
+  }
+}
+
+class Explosion extends React.Component {
+
+  state = {
+    color: "#df8223",
+    stroke: 40,
+    radius: 200
+  };
+
+  render() {
+
+      return ( <Spring onStart={()=>{console.log("hallo")}} reset={true} from={{ radius: 0, color: this.state.color  }} to={{ radius: this.state.radius, color: '#000000' }} config={{}}>
+        {spring => {
+          // console.log("and?" + spring.radius)
+          let opcatiy = 1; //(((this.state.radius - spring.radius) / this.state.radius) * 0.2) + 0.3
+          opcatiy = opcatiy > 0 ? opcatiy : 0
+           
+          return <Circle
+            
+            x={this.props.x}
+            y={this.props.y}
+            radius={spring.radius} 
+            stroke={this.state.color}
+            strokeWidth={this.state.stroke} 
+            opacity={opcatiy}
+            
+            />
+            
+        }}    
+        </Spring> )
   }
 }
 
