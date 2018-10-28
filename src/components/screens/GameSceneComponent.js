@@ -13,7 +13,15 @@ import { getBasicExplosion, getBasicTextNotification } from '../../gamePresets.j
 class GameSceneComponent extends React.Component{
 
   componentDidMount(){
-  
+    setInterval(()=>{
+      for (let i = 0; i < 1; i++){
+        this.props.createTextNotification(getBasicTextNotification({
+          x: window.innerWidth / 2 + (Math.random()*300 - 150),
+          y: window.innerHeight / 2 + (Math.random()*300 - 150),
+          text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+        }));
+      }
+    },200);
   }
 
   backgroundClick = (e) => {
@@ -22,11 +30,8 @@ class GameSceneComponent extends React.Component{
       y: e.evt.clientY
     }));
 
-    this.props.createTextNotification(getBasicTextNotification({
-      x: e.evt.clientX + 100,
-      y: e.evt.clientY,
-      text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
-    }));
+    
+    
   }  
 
   render() {

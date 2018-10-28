@@ -27,7 +27,9 @@ export function getBasicTextNotification({x,y,text}) {
     x: x,
     y: y,
     text: text,
-    fontSize: 20,
+    startFontSize: 20,
+    endFontSize: 20,
+    
     fontStyle: 'bold',
     color: "#ffffff",  
     startY: y,
@@ -35,13 +37,14 @@ export function getBasicTextNotification({x,y,text}) {
     startOpacity: 1,
     endOpacity: 0,
     startScaleX: 1,
-    endScaleX: 1.5,
+    endScaleX: 1.3,
     startScaleY: 1,
-    endScaleY: 1.5,
+    endScaleY: 1.3,
     
     springConfig: {
-      tension: 90,  
-      friction: 70
+      ...config.slow
+      // tension: 90,  
+      // friction: 70
     }
   }
 }

@@ -25,8 +25,8 @@ export default function reducer(state = initialState, action = {}) {
     case GAMESCENE_REMOVE_EXPLOSION: {
       return {
         ...state,
-        explosions: state.explosions.filter((spawningTower)=>{
-          return spawningTower.id === payload.id ? false : true 
+        explosions: state.explosions.filter((explosion)=>{
+          return explosion.id === payload.id ? false : true 
         })
       }
     }

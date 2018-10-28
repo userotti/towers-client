@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
-import { Spring, config } from 'react-spring/dist/konva'
+import { Spring, config, animated } from 'react-spring/dist/konva';
 import Konva from 'konva';
 import store from '../../redux/store';
 
@@ -12,9 +12,15 @@ export default class ExplosionComponent extends React.Component {
   render() {
       return ( <Spring 
 
-        onRest={()=>{store.dispatch(removeExplosion({
-          id: this.props.id
-        }))}} 
+        native
+        onRest={()=>{
+          
+            store.dispatch(removeExplosion({
+              id: this.props.id
+            }))
+          
+          }
+        } 
         
         // onFrame={(data)=>{console.log("data", data)}} 
       
@@ -37,13 +43,13 @@ export default class ExplosionComponent extends React.Component {
         
         {spring => {
           
-          return <Circle
+          return <animated.Circle
             x={this.props.x}
             y={this.props.y}
             radius={spring.radius} 
             stroke={this.props.color}
             strokeWidth={spring.stroke} 
-            opacity={Math.abs(spring.opacity)}
+            opacity={spring.opacity}
             />
             
         }}    
