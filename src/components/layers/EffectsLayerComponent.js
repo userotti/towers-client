@@ -6,6 +6,7 @@ import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 import ExplosionComponent from '../effects/ExplosionComponent.js';
 import TextNotificationComponent from '../effects/TextNotificationComponent.js';
 
+
 class EffectsLayerComponent extends React.Component{
 
   componentDidMount(){

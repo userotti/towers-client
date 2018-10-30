@@ -21,7 +21,7 @@ class GameSceneComponent extends React.Component{
           text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
         }));
       }
-    },200);
+    },500);
   }
 
   backgroundClick = (e) => {
@@ -30,8 +30,11 @@ class GameSceneComponent extends React.Component{
       y: e.evt.clientY
     }));
 
-    
-    
+    // this.props.createTextNotification(getBasicTextNotification({
+    //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
+    //   y: window.innerHeight / 2 + (Math.random()*300 - 150),
+    //   text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+    // }));
   }  
 
   render() {
@@ -48,8 +51,6 @@ class GameSceneComponent extends React.Component{
             height={window.innerHeight}
             fill={"black"}
           />
-
-          
         </Layer>
         <EffectsLayerComponent/>
  

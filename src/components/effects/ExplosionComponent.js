@@ -8,23 +8,21 @@ import store from '../../redux/store';
 import { removeExplosion } from '../../redux/actions/effectsActions.js';
 export default class ExplosionComponent extends React.Component {
 
+  shouldComponentUpdate(){
+    return false;
+  }
 
   render() {
       return ( <Spring 
 
         native
         onRest={()=>{
-          
             store.dispatch(removeExplosion({
               id: this.props.id
             }))
-          
           }
         } 
         
-        // onFrame={(data)=>{console.log("data", data)}} 
-      
-
         from={{ 
           radius: this.props.startRadius, 
           stroke: this.props.startStroke,

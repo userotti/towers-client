@@ -14,7 +14,9 @@ export function getBasicExplosion({x,y}) {
     endOpacity: 0,
 
     springConfig: {
-      ...config.slow
+      ...config.slow,
+      duration: 800
+
     }
   }
 }
@@ -42,7 +44,8 @@ export function getBasicTextNotification({x,y,text}) {
     endScaleY: 1.3,
     
     springConfig: {
-      ...config.slow
+      ...config.slow,
+      duration: 800
       // tension: 90,  
       // friction: 70
     }

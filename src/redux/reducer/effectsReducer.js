@@ -40,10 +40,11 @@ export default function reducer(state = initialState, action = {}) {
 
     case GAMESCENE_REMOVE_TEXT_NOTIFICATION: {
       
+
       return {
         ...state,
         textNotifications: state.textNotifications.filter((notification)=>{
-          return notification.id === notification.id ? false : true 
+          return notification.id === payload.id ? false : true 
         })
       }
     }

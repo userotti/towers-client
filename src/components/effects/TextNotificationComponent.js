@@ -7,7 +7,10 @@ import store from '../../redux/store';
 import { removeTextNotification } from '../../redux/actions/effectsActions.js';
 export default class TextNotificationComponent extends React.Component {
 
-
+  shouldComponentUpdate(){
+    return false;
+  }
+  
   render() {
       return ( <Spring 
 
