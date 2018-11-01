@@ -51,3 +51,27 @@ export function getBasicTextNotification({x,y,text}) {
     }
   }
 }
+
+export function getRandomHitSparks({x,y}) {
+
+  return {
+    id: Math.random(),
+    x: x,
+    y: y,
+    
+    startOpacity: 1,
+    endOpacity: 0,
+    
+    startScaleX: 1,
+    endScaleX: 3,
+    startScaleY: 1,
+    endScaleY: 3,
+    
+    springConfig: {
+      ...config.slow,
+      duration: 200
+      // tension: 90,  
+      // friction: 70
+    }
+  }
+}

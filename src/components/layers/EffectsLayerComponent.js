@@ -5,6 +5,7 @@ import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 
 import ExplosionComponent from '../effects/ExplosionComponent.js';
 import TextNotificationComponent from '../effects/TextNotificationComponent.js';
+import HitSparksComponent from '../effects/HitSparksComponent.js';
 
 
 class EffectsLayerComponent extends React.Component{
@@ -15,16 +16,18 @@ class EffectsLayerComponent extends React.Component{
 
   render() {
 
-    let { explosions, textNotifications } = this.props.effects;
+    let { explosions, textNotifications, hitSparks } = this.props.effects;
    
     return (<Layer>
         {explosions.map((explosion, index)=>{
             return <ExplosionComponent key={explosion.id} {...explosion}/> 
         })}
-
         {textNotifications.map((notification, index)=>{
             return <TextNotificationComponent key={notification.id} {...notification}/> 
           })}
+        {hitSparks.map((spark, index)=>{
+            return <HitSparksComponent key={spark.id} {...spark}/> 
+          })}  
       </Layer>
     );
   }

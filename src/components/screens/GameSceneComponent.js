@@ -4,31 +4,58 @@ import { connect } from 'react-redux';
 import { Stage, Layer, Rect, Text, Circle } from 'react-konva';
 import { 
   createExplosion,
-  createTextNotification
+  createTextNotification,
+  createHitSparks,
 } from '../../redux/actions/effectsActions.js';
 
 import EffectsLayerComponent from '../layers/EffectsLayerComponent.js';
-import { getBasicExplosion, getBasicTextNotification } from '../../gamePresets.js';
+import { getBasicExplosion, getBasicTextNotification, getRandomHitSparks } from '../../gamePresets.js';
 
 class GameSceneComponent extends React.Component{
 
   componentDidMount(){
     setInterval(()=>{
       for (let i = 0; i < 1; i++){
+        this.props.createHitSparks(getRandomHitSparks({
+          x: 100,
+          y: 100
+        }));
+      }
+    },250);
+
+    setInterval(()=>{
+      for (let i = 0; i < 1; i++){
         this.props.createTextNotification(getBasicTextNotification({
-          x: window.innerWidth / 2 + (Math.random()*300 - 150),
-          y: window.innerHeight / 2 + (Math.random()*300 - 150),
+          x: 300,
+          y: 100,
           text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
         }));
       }
-    },500);
+    },1300);
+
+    setInterval(()=>{
+      for (let i = 0; i < 1; i++){
+        this.props.createExplosion(getBasicExplosion({
+          x: 500,
+          y: 100,
+        }));
+      }
+    },2000);
+
   }
 
   backgroundClick = (e) => {
-    this.props.createExplosion(getBasicExplosion({
-      x: e.evt.clientX,
-      y: e.evt.clientY
-    }));
+    
+    // this.props.createTextNotification(getBasicTextNotification({
+    //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
+    //   y: window.innerHeight / 2 + (Math.random()*300 - 150),
+    //   text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+    // }));
+
+    // this.props.createHitSparks(getRandomHitSparks({
+    //   x: e.evt.clientX,
+    //   y: e.evt.clientY
+    // }));
 
     // this.props.createTextNotification(getBasicTextNotification({
     //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
@@ -69,7 +96,8 @@ const mapStateToProps = ({gameScene}) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     createExplosion,
-    createTextNotification
+    createTextNotification,
+    createHitSparks
   }, dispatch)
 };
 
