@@ -63,13 +63,13 @@ export function getRandomHitSparks({x,y}) {
     endOpacity: 0,
     
     startScaleX: 1,
-    endScaleX: 3,
+    endScaleX: 5,
     startScaleY: 1,
-    endScaleY: 3,
+    endScaleY: 5,
     
     springConfig: {
       ...config.slow,
-      duration: 200
+      duration: 400
       // tension: 90,  
       // friction: 70
     }

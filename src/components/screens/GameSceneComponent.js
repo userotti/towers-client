@@ -21,26 +21,26 @@ class GameSceneComponent extends React.Component{
           y: 100
         }));
       }
-    },250);
+    },200);
 
-    setInterval(()=>{
-      for (let i = 0; i < 1; i++){
-        this.props.createTextNotification(getBasicTextNotification({
-          x: 300,
-          y: 100,
-          text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
-        }));
-      }
-    },1300);
+    // setInterval(()=>{
+    //   for (let i = 0; i < 1; i++){
+    //     this.props.createTextNotification(getBasicTextNotification({
+    //       x: 300,
+    //       y: 100,
+    //       text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+    //     }));
+    //   }
+    // },1300);
 
-    setInterval(()=>{
-      for (let i = 0; i < 1; i++){
-        this.props.createExplosion(getBasicExplosion({
-          x: 500,
-          y: 100,
-        }));
-      }
-    },2000);
+    // setInterval(()=>{
+    //   for (let i = 0; i < 1; i++){
+    //     this.props.createExplosion(getBasicExplosion({
+    //       x: 500,
+    //       y: 100,
+    //     }));
+    //   }
+    // },2000);
 
   }
 
@@ -52,10 +52,10 @@ class GameSceneComponent extends React.Component{
     //   text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
     // }));
 
-    // this.props.createHitSparks(getRandomHitSparks({
-    //   x: e.evt.clientX,
-    //   y: e.evt.clientY
-    // }));
+    this.props.createHitSparks(getRandomHitSparks({
+      x: e.evt.clientX,
+      y: e.evt.clientY
+    }));
 
     // this.props.createTextNotification(getBasicTextNotification({
     //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
