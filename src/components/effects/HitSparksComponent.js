@@ -9,9 +9,7 @@ import { removeHitSparks } from '../../redux/actions/effectsActions.js';
 export default class HitSparksComponent extends React.Component {
 
   componentDidMount() {
-    this.myComponentID = Math.random();
-
-    // console.log(" componentDidMount this.myComponentID: ", this.myComponentID);
+  
   }
 
   makeSmallPartical({x, y}) {

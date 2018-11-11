@@ -23,59 +23,61 @@ class GameSceneComponent extends React.Component{
       }
     },200);
 
-    // setInterval(()=>{
-    //   for (let i = 0; i < 1; i++){
-    //     this.props.createTextNotification(getBasicTextNotification({
-    //       x: 300,
-    //       y: 100,
-    //       text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
-    //     }));
-    //   }
-    // },1300);
+    setInterval(()=>{
+      for (let i = 0; i < 1; i++){
+        this.props.createTextNotification(getBasicTextNotification({
+          x: 300,
+          y: 100,
+          text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+        }));
+      }
+    },700);
 
-    // setInterval(()=>{
-    //   for (let i = 0; i < 1; i++){
-    //     this.props.createExplosion(getBasicExplosion({
-    //       x: 500,
-    //       y: 100,
-    //     }));
-    //   }
-    // },2000);
+    setInterval(()=>{
+      for (let i = 0; i < 1; i++){
+        this.props.createExplosion(getBasicExplosion({
+          x: 500,
+          y: 100,
+        }));
+      }
+    },500);
 
   }
 
   backgroundClick = (e) => {
     
-    // this.props.createTextNotification(getBasicTextNotification({
-    //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
-    //   y: window.innerHeight / 2 + (Math.random()*300 - 150),
-    //   text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
-    // }));
+    this.props.createTextNotification(getBasicTextNotification({
+      x: e.evt.clientX,
+      y: e.evt.clientY,
+      text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
+    }));
 
     this.props.createHitSparks(getRandomHitSparks({
       x: e.evt.clientX,
       y: e.evt.clientY
     }));
 
-    // this.props.createTextNotification(getBasicTextNotification({
-    //   x: window.innerWidth / 2 + (Math.random()*300 - 150),
-    //   y: window.innerHeight / 2 + (Math.random()*300 - 150),
-    //   text: " + " + (Math.floor(Math.random() * 10)) + " Gold"
-    // }));
+    this.props.createExplosion(getBasicExplosion({
+      x: e.evt.clientX,
+      y: e.evt.clientY
+    }));
   }  
 
   render() {
 
     let { effects } = this.props.gameScene;
+    const width = 800;
+    const height = 800;
+    
    
     return (
-      <Stage width={window.innerWidth} height={window.innerHeight} onClick={this.backgroundClick}>
+      <Stage width={width} height={height} onClick={this.backgroundClick}>
         <Layer>
           <Rect
             x={0}
             y={0}
-            width={window.innerWidth}
-            height={window.innerHeight}
+            width={width}
+            height={height}
             fill={"black"}
           />
         </Layer>

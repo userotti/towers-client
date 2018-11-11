@@ -15,7 +15,6 @@ const initialState = {
 };
 
 const findReusableEffectIndex = (effects) => {
-
   let reuseableIndex;
   for (let i = 0; i < effects.length; i++){
     if (effects[i].isReset == false) {
@@ -24,9 +23,31 @@ const findReusableEffectIndex = (effects) => {
       
     }  
   }
+  return reuseableIndex;
+}
 
-  return reuseableIndex
+const reuseOrMakeNew = (array, payload) =>{
+  let reuseableIndex = findReusableEffectIndex(array);
+  if (reuseableIndex != undefined){
+    array[reuseableIndex] = Object.assign({}, {
+      ...payload,
+      id: array[reuseableIndex].id,
+      isReset: true,
+    });
+  }
+  return reuseableIndex != undefined ? [...array] : [...array, {...payload, isReset: true}];
+}
 
+const markEffectAsReset = (array, payload)=>{
+  for (let i = 0; i < array.length; i++){
+    if (array[i].id == payload.id){
+      array[i] = Object.assign({}, {
+        ...array[i],
+        isReset: false
+      })
+    }
+  }
+  return array;
 }
 
 
@@ -35,92 +56,46 @@ export default function reducer(state = initialState, action = {}) {
   switch (type) {
 
     case GAMESCENE_CREATE_EXPLOSION: {
-
-
       return {
         ...state,
-        explosions: [...state.explosions, payload],
+        explosions: reuseOrMakeNew(state.explosions, payload)
       }
     }
 
     case GAMESCENE_REMOVE_EXPLOSION: {
       return {
         ...state,
-        explosions: state.explosions.filter((explosion)=>{
-          return explosion.id === payload.id ? false : true 
-        })
+        explosions: markEffectAsReset(state.explosions, payload)
       }
     }
 
     case GAMESCENE_CREATE_TEXT_NOTIFICATION: {
       return {
         ...state,
-        textNotifications: [...state.textNotifications, payload],
+        textNotifications: reuseOrMakeNew(state.textNotifications, payload)
       }
     }
 
     case GAMESCENE_REMOVE_TEXT_NOTIFICATION: {
       return {
         ...state,
-        textNotifications: state.textNotifications.filter((notification)=>{
-          return notification.id === payload.id ? false : true 
-        })
+        textNotifications: markEffectAsReset(state.textNotifications, payload)
       }
     }
 
     case GAMESCENE_CREATE_HIT_SPARKS: {
-
-      //find a reuseable effect
-      let reuseableIndex = undefined
-      reuseableIndex = findReusableEffectIndex(state.hitSparks);
-      if (reuseableIndex != undefined){
-
-        //swop it out  
-        state.hitSparks[reuseableIndex] = Object.assign({}, {
-          ...payload,
-          id: state.hitSparks[reuseableIndex].id,
-          isReset: true,
-        });
-
-        //console.log("found one to reuse "+ reuseableIndex);
-        return {
-          ...state,
-          hitSparks: [...state.hitSparks]
-        }
-
-      } else {
-
-        //console.log("made a new one");
-        //add new
-        return {
-          ...state,
-          hitSparks: [...state.hitSparks, {...payload, isReset: true}]
-        }
-
+      return {
+        ...state,
+        hitSparks: reuseOrMakeNew(state.hitSparks, payload)
       }
-
     }
 
     case GAMESCENE_REMOVE_HIT_SPARKS: {
-
-      for (let i = 0; i < state.hitSparks.length; i++){
-        if (state.hitSparks[i].id == payload.id){
-          state.hitSparks[i] = Object.assign({}, {
-            ...state.hitSparks[i],
-            isReset: false,
-            resetTime: Date.now()
-          })
-        }
-      }
-
-      
       return {
         ...state,
-        hitSparks: [...state.hitSparks]
+        hitSparks: markEffectAsReset(state.hitSparks, payload)
       }
-
     }
-
     
     default: {
       return {

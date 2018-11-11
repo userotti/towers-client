@@ -7,66 +7,70 @@ import store from '../../redux/store';
 import { removeTextNotification } from '../../redux/actions/effectsActions.js';
 export default class TextNotificationComponent extends React.Component {
 
-  shouldComponentUpdate(){
-    return false;
+  shouldComponentUpdate(props){
+    return props.isReset && !this.isBusyAnimating;
   }
   
   render() {
-      return ( <Spring 
 
-        native
-        onRest={()=>{
+    this.isBusyAnimating = true;
+
+    return ( <Spring 
+
+      native
+      reset
+      onRest={()=>{
+        this.isBusyAnimating = false;
+        store.dispatch(removeTextNotification({
+          id: this.props.id
+        }))
+      
+      }} 
+      
+      from={{ 
+        scaleX: this.props.startScaleX, 
+        scaleY: this.props.startScaleY,
+        opacity: this.props.startOpacity,
+        y: this.props.startY,
+        fontSize:this.props.startFontSize
           
-          store.dispatch(removeTextNotification({
-            id: this.props.id
-          }))
-        
-        }} 
-        
-        from={{ 
-          scaleX: this.props.startScaleX, 
-          scaleY: this.props.startScaleY,
-          opacity: this.props.startOpacity,
-          y: this.props.startY,
-          fontSize:this.props.startFontSize
-            
-            
-        }} 
-        to={{ 
-          scaleX: this.props.endScaleX, 
-          scaleY: this.props.endScaleY,
-          opacity: this.props.endOpacity,
-          y: this.props.endY,
-          fontSize:this.props.endFontSize
           
-        }} 
-        config={{
-          ...this.props.springConfig
-        }}>
+      }} 
+      to={{ 
+        scaleX: this.props.endScaleX, 
+        scaleY: this.props.endScaleY,
+        opacity: this.props.endOpacity,
+        y: this.props.endY,
+        fontSize:this.props.endFontSize
         
-        {spring => {
-         
-          return <animated.Text
-            ref={ref => (this.konvaText = ref)}
-            x={this.props.x}
-            y={spring.y}
-            fontSize={spring.fontSize}
-            fontStyle={this.props.fontStyle}
-            fill={this.props.color}
-            opacity={spring.opacity}
-            scaleX={spring.scaleX}
-            scaleY={spring.scaleY}
-            text={this.props.text}
+      }} 
+      config={{
+        ...this.props.springConfig
+      }}>
+      
+      {spring => {
+        
+        return <animated.Text
+          ref={ref => (this.konvaText = ref)}
+          x={this.props.x}
+          y={spring.y}
+          fontSize={spring.fontSize}
+          fontStyle={this.props.fontStyle}
+          fill={this.props.color}
+          opacity={spring.opacity}
+          scaleX={spring.scaleX}
+          scaleY={spring.scaleY}
+          text={this.props.text}
 
-            wrap="char"
-            align="center"
-            width={100}
-            offsetX={50}
+          wrap="char"
+          align="center"
+          width={100}
+          offsetX={50}
 
-          />
-  
-        }}  
+        />
 
-        </Spring> )
+      }}  
+
+      </Spring> )
   }
 }
