@@ -8,6 +8,12 @@ import store from '../../redux/store';
 import { removeHitSparks } from '../../redux/actions/effectsActions.js';
 export default class HitSparksComponent extends React.Component {
 
+  componentDidMount() {
+    this.myComponentID = Math.random();
+
+    // console.log(" componentDidMount this.myComponentID: ", this.myComponentID);
+  }
+
   makeSmallPartical({x, y}) {
     return <Rect
         key={Math.random()}
@@ -19,7 +25,7 @@ export default class HitSparksComponent extends React.Component {
   }
 
   makeArrayOfSpots(){
-    let spots = [0,0,0,0,0];
+    let spots = [0,0,0,0,0,0,0];
     return spots.map(()=>{
       return {
         x: (Math.random()-Math.random()) * 15,
@@ -29,18 +35,26 @@ export default class HitSparksComponent extends React.Component {
 
   }
 
-  shouldComponentUpdate(){
-    return false;
+  shouldComponentUpdate(props){
+    return props.isReset && !this.isBusyAnimating;
   }
 
-  render() {
+  render(props) {
 
-    let spots = this.makeArrayOfSpots();
+    this.isBusyAnimating = true;
+
+    if (!this.particals){
+      this.particals = this.makeArrayOfSpots().map((spot)=>{
+        return this.makeSmallPartical(spot); 
+      });
+    }
 
     return ( <Spring 
 
       native
+      reset
       onRest={()=>{
+          this.isBusyAnimating = false;
           store.dispatch(removeHitSparks({
             id: this.props.id
           }))
@@ -72,9 +86,7 @@ export default class HitSparksComponent extends React.Component {
           scaleY={spring.scaleY}
           opacity={spring.opacity}
           > 
-            {this.makeArrayOfSpots().map((spot)=>{
-              return this.makeSmallPartical(spot); 
-            })}
+            {this.particals}
           
           </animated.Group>
           
